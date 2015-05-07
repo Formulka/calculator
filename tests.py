@@ -31,6 +31,9 @@ class CalcTests(unittest.TestCase):
         with self.assertRaises(EmptyLineError):
             parse_line("")
 
+        # test float
+        with self.assertRaises(ValueError):
+            parse_line("add 3.5")
 
     def test_extract_instructions(self):
         source_base = """
