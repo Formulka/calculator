@@ -122,10 +122,13 @@ def calculate_instructions(input_instructions, output_instructions=False):
     for instruction, instruction_value in instructions:
         try:
             output_value = calculate_instruction(instruction, input_value, instruction_value)
-        except (ZeroDivisionError, ValueError):
-            raise
+        except ZeroDivisionError, e:
+            raise ZeroDivisionError("ERROR: %s in instruction (%s %s)" % (e.message, instruction, instruction_value))
+        except ValueError, e:
+            raise ValueError("ERROR: %s in instruction (%s %s)" % (e.message, instruction, instruction_value))
         except OverflowError, e:
-            raise OverflowError("overflow, %s" % e.message)
+            # overflow doesn't provide the most helpful message
+            raise OverflowError("ERROR: overflow, %s" % e.message)
 
         # print the individual instructions if required
         if output_instructions:
