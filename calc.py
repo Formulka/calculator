@@ -5,9 +5,17 @@ from __future__ import division
 import sys
 import argparse
 
+class EmptyLineError(ValueError):
+    pass
 
 def parse_line(line):
     """ parse individual lines from file """
+
+    # strip whitespaces from a line
+    line = line.strip()
+
+    if not len(line):
+        raise EmptyLineError()
 
     try:
         instruction, value = line.split(' ')
@@ -22,12 +30,25 @@ def parse_line(line):
 
     return instruction, value
 
-def extract_instructions(f):
+def extract_instructions(source):
     """ extract instructions from the file
-        f = file
+        source = iterable
     """
-    pass
+    instructions = []
+    line_number = 0
 
+    for line in source:
+        line_number += 1
+        try:
+            instruction, number = parse_line(line)
+        except EmptyLineError:
+            continue
+        except ValueError:
+            raise ValueError("invalid instruction on line %i (%s)" % (line_number, line.strip()))
+
+        instructions.append((instruction, number))
+
+    return instructions
 
 def main(args=None):
     usage='%(prog)s <filepath> [-v]'

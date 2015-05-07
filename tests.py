@@ -18,9 +18,10 @@ class CalcTests(unittest.TestCase):
         add 3
         apply 5
         """
+        source_iterable = source.split('\n')
         result = [("add", 5), ("subtract", 2), ("divide", 5), ("add", 3), ("apply", 5)]
 
-        self.assertEquals(extract_instructions(source), result)
+        self.assertEquals(extract_instructions(source_iterable), result)
 
 def main():
     unittest.main()
