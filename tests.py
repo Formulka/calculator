@@ -94,6 +94,10 @@ class CalcTests(unittest.TestCase):
         # test division
         self.assertEquals(calculate_instruction("divide", 8, 3), 2.6666666666666665)
 
+        # test zero division
+        with self.assertRaises(ZeroDivisionError):
+            calculate_instruction("divide", 4, 0)
+
 
 def main():
     unittest.main()
