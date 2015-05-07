@@ -122,7 +122,7 @@ def calculate_instructions(input_instructions, output_instructions=False):
             raise
 
         if output_instructions:
-            print "%s %s %s" % (instruction, input_value, instruction_value)
+            print "%s %s %s" % (input_value, instruction, instruction_value)
 
         input_value = output_value
 
