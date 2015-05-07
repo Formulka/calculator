@@ -99,6 +99,16 @@ class CalcTests(unittest.TestCase):
         with self.assertRaises(ZeroDivisionError):
             calculate_instruction("divide", 4, 0)
 
+        # test modulo
+        self.assertEquals(calculate_instruction("mod", 5, 4), 1)
+
+        # test power
+        self.assertEquals(calculate_instruction("pow", 4, 6), 4096.0)
+
+        # test logarithm
+        self.assertAlmostEquals(calculate_instruction("log", 3, 2), 1.5849625007211563)
+
+
     def test_calculate_instructions(self):
         input_instructions = [
             ("add", 10),
