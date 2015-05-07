@@ -68,12 +68,10 @@ def extract_instructions(source, accept_float=False):
         source = iterable
     """
     instructions = []
-    line_number = 0
     is_terminated = False
 
     # cycle the lines from the source
-    for line in source:
-        line_number += 1
+    for line_number, line in enumerate(source, start=1):
         try:
             instruction, number = parse_line(line, accept_float=accept_float)
         except EmptyLineError:
