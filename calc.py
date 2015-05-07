@@ -93,9 +93,10 @@ def calculate_instruction(instruction, input_value, instruction_value):
     """
     return INSTRUCTIONS[instruction](input_value, instruction_value)
 
-def calculate_instructions(instructions):
+def calculate_instructions(input_instructions):
     """ calculate all instructions
     """
+    instructions = list(input_instructions)
 
     # the last instruction is the input value
     terminator, input_value = instructions.pop()
