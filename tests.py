@@ -2,7 +2,7 @@
 
 import unittest
 
-from calc import extract_instructions, parse_line
+from calc import extract_instructions, parse_line, EmptyLineError
 
 
 class CalcTests(unittest.TestCase):
@@ -25,6 +25,10 @@ class CalcTests(unittest.TestCase):
         # test invalid instruction
         with self.assertRaises(ValueError):
             parse_line("foo 5")
+
+        # test empty line
+        with self.assertRaises(EmptyLineError):
+            parse_line("")
 
 
     def test_extract_instructions(self):
