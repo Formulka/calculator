@@ -134,9 +134,6 @@ class CalcTests(unittest.TestCase):
         # test OK input
         self.assertEquals(calculate_instructions(input_instructions), 10.5)
 
-        # test OK input, calculate_integers
-        self.assertEquals(calculate_instructions(input_instructions, calculate_integers=True), 10)
-
         # test calculation doesn't change the input_instructions
         self.assertEquals(input_instructions, original_input_instructions)
 
