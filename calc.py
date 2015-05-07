@@ -62,6 +62,10 @@ def extract_instructions(source):
         # add the parsed instruction to the instructions list
         instructions.append((instruction, number))
 
+    # check if any instructions were provided
+    if not len(instructions):
+        raise ExtractionError("ERROR: no instructions provided")
+
     return instructions
 
 def main(args=None):
