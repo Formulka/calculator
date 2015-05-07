@@ -96,7 +96,20 @@ def calculate_instruction(instruction, input_value, instruction_value):
 def calculate_instructions(instructions):
     """ calculate all instructions
     """
-    pass
+
+    # the last instruction is the input value
+    terminator, input_value = instructions.pop()
+    output_value = input_value
+
+    # cycle through and calculate the instructions
+    for instruction, value in instructions:
+        try:
+            output_value = calculate_instruction(instruction, input_value, value)
+        except (ZeroDivisionError, ValueError), e:
+            raise
+        input_value = output_value
+
+    return output_value
 
 def main(args=None):
     usage='%(prog)s <filepath> [-v]'

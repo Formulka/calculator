@@ -107,7 +107,7 @@ class CalcTests(unittest.TestCase):
             ("divide", 2),
             ("apply", 3),
         ]
-        self.assertEquals(calculate_instructions(input_instructions), 3.0)
+        self.assertEquals(calculate_instructions(input_instructions), 12.0)
 
 
 
