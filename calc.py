@@ -85,8 +85,18 @@ def extract_instructions(source):
 
     return instructions
 
-def calculate_instruction(instruction, in_input, value):
-    return INSTRUCTIONS[instruction](in_input, value)
+def calculate_instruction(instruction, input_value, instruction_value):
+    """ calculate a single instruction
+        instruction = one of INSTRUCTIONS
+        input_value = input value
+        instruction_value = instruction value
+    """
+    return INSTRUCTIONS[instruction](input_value, instruction_value)
+
+def calculate_instructions(instructions):
+    """ calculate all instructions
+    """
+    pass
 
 def main(args=None):
     usage='%(prog)s <filepath> [-v]'

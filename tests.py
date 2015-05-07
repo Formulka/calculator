@@ -2,7 +2,8 @@
 
 import unittest
 
-from calc import extract_instructions, parse_line, EmptyLineError, ExtractionError, calculate_instruction
+from calc import extract_instructions, parse_line, EmptyLineError, ExtractionError, calculate_instruction,\
+    calculate_instructions
 
 
 class CalcTests(unittest.TestCase):
@@ -97,6 +98,17 @@ class CalcTests(unittest.TestCase):
         # test zero division
         with self.assertRaises(ZeroDivisionError):
             calculate_instruction("divide", 4, 0)
+
+    def test_calculate_instructions(self):
+        input_instructions = [
+            ("add", 10),
+            ("subtract", 5),
+            ("multiply", 3),
+            ("divide", 2),
+            ("apply", 3),
+        ]
+        self.assertEquals(calculate_instructions(input_instructions), 3.0)
+
 
 
 def main():
