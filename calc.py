@@ -20,6 +20,10 @@ INSTRUCTIONS = {
     'divide': lambda a, b: a / b,
     TERMINAL_INSTRUCTION: lambda a, b: a}
 
+def validate_instruction(instruction):
+    """ validate instruction """
+    if instruction not in INSTRUCTIONS:
+        raise ValueError("invalid instruction (%s), valid instructions: %s" % (instruction, ', '.join(INSTRUCTIONS)))
 
 def parse_line(line):
     """ parse individual lines from file """
@@ -44,8 +48,7 @@ def parse_line(line):
         raise ValueError("instruction number should be an integer")
 
     # validate the instruction
-    if instruction not in INSTRUCTIONS:
-        raise ValueError("valid instructions: %s" % (', '.join(INSTRUCTIONS)))
+    validate_instruction(instruction)
 
     return instruction, value
 
@@ -65,7 +68,7 @@ def extract_instructions(source):
         except EmptyLineError:
             continue
         except ValueError, e:
-            raise ValueError("ERROR: invalid instruction on line %i (%s)\n%s" % (line_number, line.strip(), e.message))
+            raise ValueError("ERROR: on line %i (%s)\n%s" % (line_number, line.strip(), e.message))
 
         # add the parsed instruction to the instructions list
         instructions.append((instruction, number))
@@ -91,6 +94,10 @@ def calculate_instruction(instruction, input_value, instruction_value):
         input_value = input value
         instruction_value = instruction value
     """
+
+    #validate instruction
+    validate_instruction(instruction)
+
     return INSTRUCTIONS[instruction](input_value, instruction_value)
 
 def calculate_instructions(input_instructions, output_instructions=False):

@@ -99,6 +99,10 @@ class CalcTests(unittest.TestCase):
         with self.assertRaises(ZeroDivisionError):
             calculate_instruction("divide", 4, 0)
 
+        # test invalid instruction
+        with self.assertRaises(ValueError):
+            calculate_instruction("foo", 2, 5)
+
         # test modulo
         self.assertEquals(calculate_instruction("mod", 5, 4), 1)
 
