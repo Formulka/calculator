@@ -93,7 +93,7 @@ def calculate_instruction(instruction, input_value, instruction_value):
     """
     return INSTRUCTIONS[instruction](input_value, instruction_value)
 
-def calculate_instructions(input_instructions):
+def calculate_instructions(input_instructions, output_instructions=False):
     """ calculate all instructions
     """
     instructions = list(input_instructions)
@@ -103,21 +103,26 @@ def calculate_instructions(input_instructions):
     output_value = input_value
 
     # cycle through and calculate the instructions
-    for instruction, value in instructions:
+    for instruction, instruction_value in instructions:
         try:
-            output_value = calculate_instruction(instruction, input_value, value)
+            output_value = calculate_instruction(instruction, input_value, instruction_value)
         except (ZeroDivisionError, ValueError), e:
             raise
+
+        if output_instructions:
+            print "%s %s %s" % (instruction, input_value, instruction_value)
+
         input_value = output_value
 
     return output_value
 
 def main(args=None):
-    usage='%(prog)s <filepath> [-v]'
+    usage='%(prog)s <filepath> [-o]'
     description='Simple calculator.'
 
     parser = argparse.ArgumentParser(usage=usage, description=description)
     parser.add_argument('filepath', action='store', help='source file path')
+    parser.add_argument('-o','--output', action='store_true', help='output the instructions')
 
     pargs = parser.parse_args(args)
 
@@ -138,7 +143,7 @@ def main(args=None):
 
     # calculate instructions
     try:
-        result = calculate_instructions(instructions)
+        result = calculate_instructions(instructions, pargs.output)
     except (ValueError, ZeroDivisionError), e:
         sys.exit(e.message)
 
