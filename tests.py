@@ -107,9 +107,13 @@ class CalcTests(unittest.TestCase):
             ("divide", 2),
             ("apply", 3),
         ]
+        original_input_instructions = list(input_instructions)
+
+        # test OK input
         self.assertEquals(calculate_instructions(input_instructions), 12.0)
 
-
+        # test calculation doesn't change the input_instructions
+        self.assertEquals(input_instructions, original_input_instructions)
 
 def main():
     unittest.main()
