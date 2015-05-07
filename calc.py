@@ -6,12 +6,26 @@ import sys
 import argparse
 
 
-# parse individual lines from file
 def parse_line(line):
-    pass
+    """ parse individual lines from file """
 
-# extract instructions from the file
+    try:
+        instruction, value = line.split(' ')
+    except ValueError:
+        raise ValueError("valid format: <instruction> <number>")
+
+    try:
+        value = int(value)
+    except ValueError:
+        raise ValueError("instruction number should be an integer")
+
+
+    return instruction, value
+
 def extract_instructions(f):
+    """ extract instructions from the file
+        f = file
+    """
     pass
 
 
