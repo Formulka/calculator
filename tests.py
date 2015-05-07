@@ -2,7 +2,7 @@
 
 import unittest
 
-from calc import extract_instructions, parse_line, EmptyLineError
+from calc import extract_instructions, parse_line, EmptyLineError, ExtractionError
 
 
 class CalcTests(unittest.TestCase):
@@ -62,6 +62,12 @@ class CalcTests(unittest.TestCase):
         source = source_base % "foo 5"
         source_iterable = source.split('\n')
         with self.assertRaises(ValueError):
+            extract_instructions(source_iterable)
+
+        # test empty source
+        source = ""
+        source_iterable = source.split('\n')
+        with self.assertRaises(ExtractionError):
             extract_instructions(source_iterable)
 
 def main():

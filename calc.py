@@ -8,6 +8,9 @@ import argparse
 class EmptyLineError(ValueError):
     pass
 
+class ExtractionError(ValueError):
+    pass
+
 INSTRUCTIONS = ['add', 'subtract', 'multiply', 'divide', 'apply']
 
 
