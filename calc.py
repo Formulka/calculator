@@ -30,7 +30,7 @@ def validate_instruction(instruction):
     if instruction not in INSTRUCTIONS:
         raise ValueError("invalid instruction (%s), valid instructions: %s" % (instruction, ', '.join(INSTRUCTIONS)))
 
-def parse_line(line):
+def parse_line(line, accept_float=False):
     """ parse individual lines from file """
 
     # strip whitespaces from a line
@@ -50,14 +50,20 @@ def parse_line(line):
     try:
         value = int(value)
     except ValueError:
-        raise ValueError("instruction number should be an integer")
+        if accept_float:
+            try:
+                value = float(value)
+            except:
+                raise ValueError("instruction number should be an integer or a float")
+        else:
+            raise ValueError("instruction number should be an integer")
 
     # validate the instruction
     validate_instruction(instruction)
 
     return instruction, value
 
-def extract_instructions(source):
+def extract_instructions(source, accept_float=False):
     """ extract instructions from the file
         source = iterable
     """
@@ -69,7 +75,7 @@ def extract_instructions(source):
     for line in source:
         line_number += 1
         try:
-            instruction, number = parse_line(line)
+            instruction, number = parse_line(line, accept_float=accept_float)
         except EmptyLineError:
             continue
         except ValueError, e:
@@ -138,6 +144,7 @@ def main(args=None):
     parser = argparse.ArgumentParser(usage=usage, description=description)
     parser.add_argument('filepath', action='store', help='source file path')
     parser.add_argument('-o','--output', action='store_true', help='output the instructions')
+    parser.add_argument('-f','--float', action='store_true', help='accept floats in instructions')
 
     pargs = parser.parse_args(args)
 
@@ -149,7 +156,7 @@ def main(args=None):
 
     # extract instructions
     try:
-        instructions = extract_instructions(f)
+        instructions = extract_instructions(f, accept_float=pargs.float)
     except (ValueError, ExtractionError), e:
         f.close()
         sys.exit(e.message)
