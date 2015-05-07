@@ -118,7 +118,7 @@ def calculate_instructions(input_instructions, output_instructions=False):
     for instruction, instruction_value in instructions:
         try:
             output_value = calculate_instruction(instruction, input_value, instruction_value)
-        except (ZeroDivisionError, ValueError), e:
+        except (ZeroDivisionError, ValueError, OverflowError), e:
             raise
 
         if output_instructions:
@@ -156,7 +156,7 @@ def main(args=None):
     # calculate instructions
     try:
         result = calculate_instructions(instructions, pargs.output)
-    except (ValueError, ZeroDivisionError), e:
+    except (ValueError, ZeroDivisionError, OverflowError), e:
         sys.exit(e.message)
 
     # print the result

@@ -143,6 +143,13 @@ class CalcTests(unittest.TestCase):
         with self.assertRaises(ZeroDivisionError):
             calculate_instructions(err_input_instructions)
 
+        # test overflow exception
+        err_input_instructions = list(original_input_instructions)
+        err_input_instructions[3] = ("pow", 1000000)
+        with self.assertRaises(OverflowError):
+            calculate_instructions(err_input_instructions)
+
+
 def main():
     unittest.main()
 
