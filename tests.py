@@ -71,7 +71,11 @@ class CalcTests(unittest.TestCase):
             extract_instructions(source_iterable)
 
         # test source without terminal instruction
-        source = source_base % "divide 5"
+        source_base = """
+        add 5
+        subtract 2
+        add 3
+        """
         source_iterable = source.split('\n')
         source_iterable.pop()
         with self.assertRaises(ExtractionError):

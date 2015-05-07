@@ -11,7 +11,9 @@ class EmptyLineError(ValueError):
 class ExtractionError(ValueError):
     pass
 
-INSTRUCTIONS = ['add', 'subtract', 'multiply', 'divide', 'apply']
+
+TERMINAL_INSTRUCTION = 'apply'
+INSTRUCTIONS = ['add', 'subtract', 'multiply', 'divide', TERMINAL_INSTRUCTION]
 
 
 def parse_line(line):
@@ -48,6 +50,7 @@ def extract_instructions(source):
     """
     instructions = []
     line_number = 0
+    is_terminated = False
 
     # cycle the lines from the source
     for line in source:
@@ -62,9 +65,18 @@ def extract_instructions(source):
         # add the parsed instruction to the instructions list
         instructions.append((instruction, number))
 
+        # if the instruction is terminal, exit the cycle
+        if instruction == TERMINAL_INSTRUCTION:
+            is_terminated = True
+            break
+
     # check if any instructions were provided
     if not len(instructions):
         raise ExtractionError("ERROR: no instructions provided")
+
+    # check if instructions are properly terminated
+    if not is_terminated:
+        raise ExtractionError("ERROR: missing terminal instruction (%s)" % TERMINAL_INSTRUCTION)
 
     return instructions
 
