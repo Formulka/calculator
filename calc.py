@@ -13,7 +13,12 @@ class ExtractionError(ValueError):
 
 
 TERMINAL_INSTRUCTION = 'apply'
-INSTRUCTIONS = ['add', 'subtract', 'multiply', 'divide', TERMINAL_INSTRUCTION]
+INSTRUCTIONS = {
+    'add': lambda a, b: a + b,
+    'subtract': lambda a, b: a - b,
+    'multiply': lambda a, b: a * b,
+    'divide': lambda a, b: a / b,
+    TERMINAL_INSTRUCTION: lambda a, b: a}
 
 
 def parse_line(line):
@@ -80,8 +85,8 @@ def extract_instructions(source):
 
     return instructions
 
-def calculate_instruction(in_input, instruction, value):
-    pass
+def calculate_instruction(instruction, in_input, value):
+    return INSTRUCTIONS[instruction](in_input, value)
 
 def main(args=None):
     usage='%(prog)s <filepath> [-v]'
