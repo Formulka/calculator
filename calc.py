@@ -4,6 +4,7 @@ from __future__ import division
 
 import sys
 import argparse
+import math
 
 class EmptyLineError(ValueError):
     pass
@@ -18,7 +19,11 @@ INSTRUCTIONS = {
     'subtract': lambda a, b: a - b,
     'multiply': lambda a, b: a * b,
     'divide': lambda a, b: a / b,
-    TERMINAL_INSTRUCTION: lambda a, b: a}
+    'mod': lambda a, b: a % b,
+    'pow': lambda a, b: math.pow(a, b),
+    'log': lambda a, b: math.log(a, b),
+    TERMINAL_INSTRUCTION: lambda a, b: a
+}
 
 def validate_instruction(instruction):
     """ validate instruction """
