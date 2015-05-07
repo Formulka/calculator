@@ -109,8 +109,16 @@ class CalcTests(unittest.TestCase):
         # test power
         self.assertEquals(calculate_instruction("pow", 4, 6), 4096.0)
 
+        # test overflow case
+        with self.assertRaises(OverflowError):
+            calculate_instruction("pow", 2, 10000)
+
         # test logarithm
         self.assertAlmostEquals(calculate_instruction("log", 3, 2), 1.5849625007211563)
+
+        # test logarithm of a negative number
+        with self.assertRaises(ValueError):
+            calculate_instruction("log", -2, 10)
 
 
     def test_calculate_instructions(self):
