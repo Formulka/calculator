@@ -115,6 +115,12 @@ class CalcTests(unittest.TestCase):
         # test calculation doesn't change the input_instructions
         self.assertEquals(input_instructions, original_input_instructions)
 
+        # test division by zero exception
+        err_input_instructions = list(original_input_instructions)
+        err_input_instructions[3] = ("divide", 0)
+        with self.assertRaises(ZeroDivisionError):
+            calculate_instructions(err_input_instructions)
+
 def main():
     unittest.main()
 
