@@ -17,19 +17,23 @@ def parse_line(line):
     # strip whitespaces from a line
     line = line.strip()
 
+    # empty line is invalid
     if not len(line):
         raise EmptyLineError()
 
+    # split the line into a pair instruction, value
     try:
         instruction, value = line.split(' ')
     except ValueError:
         raise ValueError("valid format: <instruction> <number>")
 
+    # convert the string value into an integer
     try:
         value = int(value)
     except ValueError:
         raise ValueError("instruction number should be an integer")
 
+    # validate the instruction
     if instruction not in INSTRUCTIONS:
         raise ValueError("valid instructions: %s" % (', '.join(INSTRUCTIONS)))
 
@@ -42,6 +46,7 @@ def extract_instructions(source):
     instructions = []
     line_number = 0
 
+    # cycle the lines from the source
     for line in source:
         line_number += 1
         try:
@@ -51,6 +56,7 @@ def extract_instructions(source):
         except ValueError, e:
             raise ValueError("ERROR: invalid instruction on line %i (%s)\n%s" % (line_number, line.strip(), e.message))
 
+        # add the parsed instruction to the instructions list
         instructions.append((instruction, number))
 
     return instructions
