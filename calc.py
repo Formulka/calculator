@@ -118,8 +118,10 @@ def calculate_instructions(input_instructions, output_instructions=False, calcul
     for instruction, instruction_value in instructions:
         try:
             output_value = calculate_instruction(instruction, input_value, instruction_value)
-        except (ZeroDivisionError, ValueError, OverflowError):
+        except (ZeroDivisionError, ValueError):
             raise
+        except OverflowError, e:
+            raise OverflowError("overflow, %s" % e.message)
 
         if calculate_integers:
             output_value = int(output_value)
