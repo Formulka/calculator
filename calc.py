@@ -121,6 +121,9 @@ def calculate_instructions(input_instructions, output_instructions=False, calcul
         except (ZeroDivisionError, ValueError, OverflowError):
             raise
 
+        if calculate_integers:
+            output_value = int(output_value)
+
         if output_instructions:
             print "%s %s %s" % (input_value, instruction, instruction_value)
 
