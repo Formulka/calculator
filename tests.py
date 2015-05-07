@@ -20,7 +20,11 @@ class CalcTests(unittest.TestCase):
 
         # test invalid format
         with self.assertRaises(ValueError):
-            parse_line("add foo bar")
+            parse_line("add 5 5")
+
+        # test invalid instruction
+        with self.assertRaises(ValueError):
+            parse_line("foo 5")
 
 
     def test_extract_instructions(self):
@@ -46,6 +50,12 @@ class CalcTests(unittest.TestCase):
 
         # test invalid format
         source = source_base % "add 5 5"
+        source_iterable = source.split('\n')
+        with self.assertRaises(ValueError):
+            extract_instructions(source_iterable)
+
+        # test invalid instruction
+        source = source_base % "foo 5"
         source_iterable = source.split('\n')
         with self.assertRaises(ValueError):
             extract_instructions(source_iterable)
