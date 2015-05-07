@@ -2,7 +2,7 @@
 
 import unittest
 
-from calc import extract_instructions, parse_line, EmptyLineError, ExtractionError
+from calc import extract_instructions, parse_line, EmptyLineError, ExtractionError, calculate_instruction
 
 
 class CalcTests(unittest.TestCase):
@@ -80,6 +80,20 @@ class CalcTests(unittest.TestCase):
         source_iterable.pop()
         with self.assertRaises(ExtractionError):
             extract_instructions(source_iterable)
+
+    def test_calculate_instruction(self):
+        # test addition
+        self.assertEquals(calculate_instruction("add", 2, 5), 7)
+
+        # test subtraction
+        self.assertEquals(calculate_instruction("subtract", 2, 4), -2)
+
+        # test mutliplication
+        self.assertEquals(calculate_instruction("multiply", 8, 9), 72)
+
+        # test division
+        self.assertEquals(calculate_instruction("divide", 8, 3), 2.6666666666666665)
+
 
 def main():
     unittest.main()

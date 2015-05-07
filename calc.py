@@ -80,6 +80,9 @@ def extract_instructions(source):
 
     return instructions
 
+def calculate_instruction(in_input, instruction, value):
+    pass
+
 def main(args=None):
     usage='%(prog)s <filepath> [-v]'
     description='Simple calculator.'
