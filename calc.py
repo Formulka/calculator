@@ -8,6 +8,9 @@ import argparse
 class EmptyLineError(ValueError):
     pass
 
+INSTRUCTIONS = ['add', 'subtract', 'multiply', 'divide', 'apply']
+
+
 def parse_line(line):
     """ parse individual lines from file """
 
@@ -27,6 +30,8 @@ def parse_line(line):
     except ValueError:
         raise ValueError("instruction number should be an integer")
 
+    if instruction not in INSTRUCTIONS:
+        raise ValueError("valid instructions: %s" % (', '.join(INSTRUCTIONS)))
 
     return instruction, value
 
