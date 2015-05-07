@@ -43,8 +43,8 @@ def extract_instructions(source):
             instruction, number = parse_line(line)
         except EmptyLineError:
             continue
-        except ValueError:
-            raise ValueError("invalid instruction on line %i (%s)" % (line_number, line.strip()))
+        except ValueError, e:
+            raise ValueError("ERROR: invalid instruction on line %i (%s)\n%s" % (line_number, line.strip(), e.message))
 
         instructions.append((instruction, number))
 
