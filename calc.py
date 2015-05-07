@@ -127,9 +127,23 @@ def main(args=None):
     except (OSError, IOError):
         sys.exit("ERROR: please provide a valid file path")
 
+    # extract instructions
+    try:
+        instructions = extract_instructions(f)
+    except (ValueError, ExtractionError), e:
+        f.close()
+        sys.exit(e.message)
+
     f.close()
 
+    # calculate instructions
+    try:
+        result = calculate_instructions(instructions)
+    except (ValueError, ZeroDivisionError), e:
+        sys.exit(e.message)
 
+    # print the result
+    print result
 
 if __name__ == "__main__":
     main()
