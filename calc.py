@@ -105,7 +105,7 @@ def calculate_instruction(instruction, input_value, instruction_value):
 
     return INSTRUCTIONS[instruction](input_value, instruction_value)
 
-def calculate_instructions(input_instructions, output_instructions=False):
+def calculate_instructions(input_instructions, output_instructions=False, calculate_integers=False):
     """ calculate all instructions
     """
     instructions = list(input_instructions)
@@ -118,7 +118,7 @@ def calculate_instructions(input_instructions, output_instructions=False):
     for instruction, instruction_value in instructions:
         try:
             output_value = calculate_instruction(instruction, input_value, instruction_value)
-        except (ZeroDivisionError, ValueError, OverflowError), e:
+        except (ZeroDivisionError, ValueError, OverflowError):
             raise
 
         if output_instructions:
@@ -135,6 +135,7 @@ def main(args=None):
     parser = argparse.ArgumentParser(usage=usage, description=description)
     parser.add_argument('filepath', action='store', help='source file path')
     parser.add_argument('-o','--output', action='store_true', help='output the instructions')
+    parser.add_argument('-i','--integer', action='store_true', help='calculations result in integers')
 
     pargs = parser.parse_args(args)
 
@@ -155,7 +156,7 @@ def main(args=None):
 
     # calculate instructions
     try:
-        result = calculate_instructions(instructions, pargs.output)
+        result = calculate_instructions(instructions, pargs.output, pargs.integer)
     except (ValueError, ZeroDivisionError, OverflowError), e:
         sys.exit(e.message)
 
