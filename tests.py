@@ -70,6 +70,13 @@ class CalcTests(unittest.TestCase):
         with self.assertRaises(ExtractionError):
             extract_instructions(source_iterable)
 
+        # test source without terminal instruction
+        source = source_base % "divide 5"
+        source_iterable = source.split('\n')
+        source_iterable.pop()
+        with self.assertRaises(ExtractionError):
+            extract_instructions(source_iterable)
+
 def main():
     unittest.main()
 
